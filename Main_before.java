@@ -21,6 +21,7 @@ public class Main_before {
 		length2 = new int[n][m];
 		length3 = new int[n][m];
 		
+		//Substitute Algorithm
 		for (int i=0;i<n;i++) {
 			for (int j=0;j<m;j++) {
 				length1[i][j] = INF;
@@ -71,10 +72,13 @@ public class Main_before {
 		}
 		if (isUpdate) {
 			for(int k=0;k<4;k++) {
+				//Remove Assignments to Parameters
 				i = i+di[k];
 				j = j+dj[k];
+				
+				//Extract Method
 				if(i>-1 && j>-1 && i<map.length && j<map[0].length)
-				dfs(i-di[k],j-dj[k],i,j,map);
+					dfs(i-di[k],j-dj[k],i,j,map);
 			}
 		}
 	}
@@ -90,7 +94,8 @@ public class Main_before {
 		for (int i=0;i<n;i++) 
 			for (int j=0;j<m;j++) 
 				map[i][j] = scan.nextInt();
-			
+		
+		//Inline Temp
 		String ret = solve(n, m, map);
 		System.out.println(ret);
 		
