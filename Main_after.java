@@ -1,5 +1,6 @@
 package acmicpc;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main_after {
@@ -23,11 +24,9 @@ public class Main_after {
 		
 		//Substitute Algorithm
 		for (int i=0;i<n;i++) {
-			for (int j=0;j<m;j++) {
-				length1[i][j] = INF;
-				length2[i][j] = INF;
-				length3[i][j] = INF;
-			}
+			Arrays.fill(length1,INF);
+			Arrays.fill(length2,INF);
+			Arrays.fill(length3,INF);
 		}
 		if(!isJaeum(map[0][0])) return "BAD";
 		if(isJaeum(map[1][0]) && isJaeum(map[0][1])) return "BAD";
@@ -70,20 +69,26 @@ public class Main_after {
 				isUpdate = true;
 			}
 		}
+		int nextI;
+		int nextJ;
+		
 		if (isUpdate) {
 			for(int k=0;k<4;k++) {
 				//Remove Assignments to Parameters
-				i = i+di[k];
-				j = j+dj[k];
+				nextI = i+di[k];
+				nextJ = j+dj[k];
 				
 				//Extract Method
-				if(i>-1 && j>-1 && i<map.length && j<map[0].length)
-					dfs(i-di[k],j-dj[k],i,j,map);
+				if(isRange(nextI, nextJ, map))
+					dfs(i,j,nextI,nextJ,map);
 			}
 		}
 	}
 	static boolean isJaeum(int ch) {
 		return (ch < 14);
+	}
+	static boolean isRange(int i, int j, int[][] map) {
+		return i>-1 && j>-1 && i<map.length && j<map[0].length;
 	}
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
@@ -96,8 +101,7 @@ public class Main_after {
 				map[i][j] = scan.nextInt();
 		
 		//Inline Temp
-		String ret = solve(n, m, map);
-		System.out.println(ret);
+		System.out.println(solve(n, m, map));
 		
 		scan.close();
 	}
